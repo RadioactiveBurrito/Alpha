@@ -9,12 +9,9 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-
+//Partie à Jacob.
 namespace Personnage
 {
-    /// <summary>
-    /// This is a game component that implements IUpdateable.
-    /// </summary>
     public class Personnage : Microsoft.Xna.Framework.DrawableGameComponent
     {
         const float INTERVAL_NORMAL_MAJ = 1f / 60f;

@@ -10,8 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 namespace Alpha
-{
-
+{//Partie à Ludo.
     public class Jeu : Microsoft.Xna.Framework.Game
     {
         #region Propriétés, constantes et initialisation.
@@ -39,7 +38,6 @@ namespace Alpha
 
 
         }
-
         private void InitialiserCarte()
         {
 
@@ -62,7 +60,7 @@ namespace Alpha
             GraphicsDevice.Clear(Color.CornflowerBlue);
             base.Draw(gameTime);
         }
-        private void GérerClavier()
+        private void GérerManette()
         {
 
         }
@@ -75,6 +73,10 @@ namespace Alpha
 
         }
         private void GérerMenu()
+        {
+
+        }
+        private void NettoyerListeComposants()
         {
 
         }
