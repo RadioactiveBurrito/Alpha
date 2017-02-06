@@ -73,6 +73,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Caméra.cs" />
+    <Compile Include="GestionnaireDesManette.cs" />
+    <Compile Include="InputControllerManager.cs" />
+    <Compile Include="InputManager.cs" />
     <Compile Include="Manette.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Personnage.cs" />
