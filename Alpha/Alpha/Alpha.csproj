@@ -77,6 +77,7 @@
     <Compile Include="InputControllerManager.cs" />
     <Compile Include="InputManager.cs" />
     <Compile Include="Manette.cs" />
+    <Compile Include="Map.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Personnage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
