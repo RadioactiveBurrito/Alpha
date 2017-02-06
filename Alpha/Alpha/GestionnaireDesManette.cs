@@ -139,8 +139,8 @@ namespace Alpha
             if (GestionManette.EstManetteActivée(numJoueur))
             {
                 GérerDéplacement(numJoueur);
-
-                if(GestionManette.EstNouvelleTouche(numJoueur, Buttons.A))
+                GérerAction(numJoueur);
+                if (GestionManette.EstNouvelleTouche(numJoueur, Buttons.A))
                 {
                     //float i = ascension;
                     //int descente = 0;
@@ -178,6 +178,70 @@ namespace Alpha
             {
                 listeDesPersonnages[Convert.ToInt32(numJoueur.ToString())].ModifierPosition(GAUCHE);
             }
+        }
+
+        void GérerAction(PlayerIndex numJoueur)
+        {
+            Sauter(numJoueur);
+           
+        }
+
+        void Sauter(PlayerIndex numJoueur)
+        {
+            if (GestionManette.EstNouvelleTouche(numJoueur, Buttons.A))
+            {
+                float i = ascension;
+                Vector3 monter = new Vector3(0, 20f, 0);
+                int descente = 0;
+                while (i > 0)
+                {
+                    listeDesPersonnages[Convert.ToInt32(numJoueur.ToString())-1].ModifierPosition(monter);
+                    ++descente;
+                    monter.Y -= descente;
+                }
+            }
+        }
+
+        void Coup1(PlayerIndex numJoueur)
+        {
+            if (GestionManette.EstNouvelleTouche(numJoueur, Buttons.X))
+            {
+                Coup1Gauche(numJoueur);
+                Coup1Droit(numJoueur);
+
+            }
+            
+        }
+
+        void Coup1Gauche(PlayerIndex numJoueur)
+        {
+            
+        }
+
+        void Coup1Droit(PlayerIndex numJoueur)
+        {
+            
+        }
+
+        void Coup2(PlayerIndex numJoueur)
+        {
+            if (GestionManette.EstNouvelleTouche(numJoueur, Buttons.B))
+            {
+                Coup2Gauche(numJoueur);
+                Coup2Droit(numJoueur);
+
+            }
+
+        }
+
+        void Coup2Gauche(PlayerIndex numJoueur)
+        {
+
+        }
+
+        void Coup2Droit(PlayerIndex numJoueur)
+        {
+
         }
     }
 }
