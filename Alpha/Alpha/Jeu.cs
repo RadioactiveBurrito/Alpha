@@ -17,6 +17,9 @@ namespace Alpha
         public const float INTERVALLE_STANDARD = 1f / 60;
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
+        InputManager GestionInput { get; set; }
+        InputControllerManager GestionManette { get; set; }
+        List<Personnage> listeDesPersonnage { get; set; }
         private bool JeuEnPause { get; set; }
         //Menu {boutons}
 
@@ -29,8 +32,28 @@ namespace Alpha
         }
         protected override void Initialize()
         {
+            GestionInput = new InputManager(this);
+            Services.AddService(typeof(InputManager), GestionInput);
+
+            GestionManette = new InputControllerManager(this);
+            Services.AddService(typeof(InputControllerManager), GestionManette);
+
+
             base.Initialize();
         }
+
+
+        // A recoder avec l'interface(menu)
+        // Utiliser comme test pour le momment
+        // Si ta un prob vien voir marco au rak a bicyk!!!
+        void CréationPersonnage()
+        {
+            Personnage unPersonnage = new Personnage(this, 1, 1, 1, new Vector3(0, 0, 0));
+            listeDesPersonnage.Add(unPersonnage);
+            Services.AddService(typeof(List<Personnage>), listeDesPersonnage);
+        }
+
+
         protected override void LoadContent()
         {
 

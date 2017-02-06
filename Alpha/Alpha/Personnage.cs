@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 //Partie à Jacob.
-namespace Personnage
+namespace Alpha
 {
     public class Personnage : Microsoft.Xna.Framework.DrawableGameComponent
     {
@@ -59,6 +59,13 @@ namespace Personnage
             }
             base.Update(gameTime);
         }
+
+
+        public void ModifierPosition(Vector3 bouger)
+        {
+            Position += bouger;
+        }
+
         public override void Draw(GameTime gameTime)
         {
             base.Draw(gameTime);

@@ -10,13 +10,17 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 
-namespace WindowsGame1
+namespace Alpha
 {
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
     public class GestionnaireDesManette : Microsoft.Xna.Framework.GameComponent
     {
+        Vector3 GAUCHE = new Vector3(-1f, 0, 0);
+        Vector3 DROITE = new Vector3(1f, 0, 0);
+
+
         public int NbManetteMax { get; private set; }
         bool[] ManetteActive { get; set; }
         GameState gameState { get; set; }
@@ -28,7 +32,11 @@ namespace WindowsGame1
         GestionnaireDesManette uneManette;
         InputControllerManager GestionManette { get; set; }
         GamePadState AncienneTouche { get; set; }
+        GamePadState nouvelleTouche { get; set; }
+        Vector2 nouvellePosition { get; set; }
+        Vector2 anciennePosition { get; set; }
         float ascension = 50;
+        List<Personnage> listeDesPersonnages { get; set; }
 
 
 
@@ -54,6 +62,7 @@ namespace WindowsGame1
         {
             // TODO: Add your initialization code here
             GestionManette = Game.Services.GetService(typeof(InputControllerManager)) as InputControllerManager;
+            listeDesPersonnages = Game.Services.GetService(typeof(List<Personnage>)) as List<Personnage>;
             NumJoueur[0] = PlayerIndex.One;
             NumJoueur[1] = PlayerIndex.Two;
 
@@ -126,26 +135,10 @@ namespace WindowsGame1
 
         void GestionDesManette(PlayerIndex numJoueur)
         {
-            GamePadState nouvelleTouche = GamePad.GetState(numJoueur);
-            // Process input only if connected.
+            nouvelleTouche = GamePad.GetState(numJoueur);
             if (GestionManette.EstManetteActivée(numJoueur))
             {
-                // Increase vibration if the player is tapping the A button.
-                // Subtract vibration otherwise, even if the player holds down A
-                if (nouvelleTouche.Buttons.LeftStick == ButtonState.Pressed &&
-                    AncienneTouche.Buttons.LeftStick == ButtonState.Released)
-                {
-                    //if( nouvellePosition > anciennePosition)
-                    // {
-                    //     Position.X += 1;
-                    // }
-
-                    //if( nouvellePosition < anciennePosition)
-                    // {
-                    //      Position.X -= 1;
-                    // }
-
-                }
+                GérerDéplacement(numJoueur);
 
                 if(GestionManette.EstNouvelleTouche(numJoueur, Buttons.A))
                 {
@@ -160,6 +153,30 @@ namespace WindowsGame1
                 }
 
                 AncienneTouche = nouvelleTouche;
+            }
+
+        }
+
+        void GérerDéplacement(PlayerIndex numJoueur)
+        {
+            nouvellePosition = nouvelleTouche.ThumbSticks.Left;
+            GérerDéplacementHorizontale(numJoueur);
+            anciennePosition = nouvellePosition;
+
+        }
+
+       
+
+        void GérerDéplacementHorizontale(PlayerIndex numJoueur)
+        {
+            if (nouvellePosition.X == 1.0f)
+            {
+                listeDesPersonnages[Convert.ToInt32(numJoueur.ToString())].ModifierPosition(DROITE);
+            }
+
+            if (nouvellePosition.X == -1.0f)
+            {
+                listeDesPersonnages[Convert.ToInt32(numJoueur.ToString())].ModifierPosition(GAUCHE);
             }
         }
     }
