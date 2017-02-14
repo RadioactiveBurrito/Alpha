@@ -15,11 +15,14 @@ namespace Alpha
     {
         #region Propriétés, constantes et initialisation.
         public const float INTERVALLE_STANDARD = 1f / 60;
+        public const float ACCÉLÉRATION_GRAVITATIONNELLE = 9.8f;
+        public Vector3 VECTEUR_ACCÉLÉRATION_GRAVITATIONNELLE = ACCÉLÉRATION_GRAVITATIONNELLE*(Vector3.Down);
+
         private GraphicsDeviceManager graphics;
         private SpriteBatch spriteBatch;
         InputManager GestionInput { get; set; }
         InputControllerManager GestionManette { get; set; }
-        List<Personnage> listeDesPersonnage { get; set; }
+        List<Personnage> ListeDesPersonnages { get; set; }
         private bool JeuEnPause { get; set; }
         //Menu {boutons}
 
@@ -49,8 +52,8 @@ namespace Alpha
         void CréationPersonnage()
         {
             Personnage unPersonnage = new Personnage(this, 1, 1, 1, new Vector3(0, 0, 0));
-            listeDesPersonnage.Add(unPersonnage);
-            Services.AddService(typeof(List<Personnage>), listeDesPersonnage);
+            ListeDesPersonnages.Add(unPersonnage);
+            Services.AddService(typeof(List<Personnage>), ListeDesPersonnages);
         }
 
 
