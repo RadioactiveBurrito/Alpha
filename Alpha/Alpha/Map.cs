@@ -10,7 +10,7 @@ using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
 
-namespace Alpha
+namespace AtelierXNA
 {// Partit Jack
     public class Map : Microsoft.Xna.Framework.DrawableGameComponent
     {

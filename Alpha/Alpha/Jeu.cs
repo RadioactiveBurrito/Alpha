@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace Alpha
+namespace AtelierXNA
 {//Partie à Ludo.
     public class Jeu : Microsoft.Xna.Framework.Game
     {
@@ -19,8 +19,9 @@ namespace Alpha
         public Vector3 VECTEUR_ACCÉLÉRATION_GRAVITATIONNELLE = ACCÉLÉRATION_GRAVITATIONNELLE*(Vector3.Down);
 
         GraphicsDeviceManager PériphériqueGraphique { get; set; }
+        RessourcesManager<Texture2D> GestionnaireDeTextures { get; set; }
         SpriteBatch GestionSprites { get; set; }
-        InputManager GestionInput { get; set; }
+        InputManager GestionInput { get; set; }//À DES FINS DE TESTS SEULEMENTS
         InputControllerManager GestionManette { get; set; }
         List<Personnage> ListeDesPersonnages { get; set; }
         Caméra CaméraJeu { get; set; }
@@ -38,15 +39,14 @@ namespace Alpha
         {
             GestionInput = new InputManager(this);
             GestionManette = new InputControllerManager(this);
-            CaméraJeu = new Caméra();
-            
+            CaméraJeu = new CaméraSubjective(this, Vector3.Zero, Vector3.Zero, Vector3.Up, INTERVALLE_STANDARD);
             GestionSprites = new SpriteBatch(GraphicsDevice);
-
-
+            GestionnaireDeTextures = new RessourcesManager<Texture2D>(this,"Textures");
 
             Services.AddService(typeof(InputManager), GestionInput);
             Services.AddService(typeof(GraphicsDeviceManager),PériphériqueGraphique);
             Services.AddService(typeof(InputControllerManager), GestionManette);
+            Services.AddService(typeof(RessourcesManager<Texture2D>), GestionnaireDeTextures);
             Services.AddService(typeof(Caméra), CaméraJeu);
             
 

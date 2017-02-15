@@ -9,7 +9,7 @@ using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using Microsoft.Xna.Framework.Media;
 
-namespace Alpha
+namespace AtelierXNA
 {
     public class Personnage : Microsoft.Xna.Framework.DrawableGameComponent
     {

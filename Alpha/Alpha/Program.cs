@@ -1,6 +1,6 @@
 using System;
 
-namespace Alpha
+namespace AtelierXNA
 {
 #if WINDOWS || XBOX
     static class Program
