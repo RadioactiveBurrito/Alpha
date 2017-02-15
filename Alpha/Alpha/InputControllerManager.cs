@@ -12,8 +12,8 @@ using Microsoft.Xna.Framework.Media;
 
 namespace AtelierXNA
 {
-    
- 
+
+
     /// <summary>
     /// This is a game component that implements IUpdateable.
     /// </summary>
@@ -24,6 +24,9 @@ namespace AtelierXNA
         PlayerIndex[] NumJoueur { get; set; }
         bool DÈconnection { get; set; }
         Color CouleurFond { get; set; }
+        GamePadState Ancien…tatManette { get; set; }
+
+        GamePadState …tatManette { get; set; }
         GestionnaireDesManette uneManette;
 
         public InputControllerManager(Game game)
@@ -45,24 +48,26 @@ namespace AtelierXNA
 
         public override void Update(GameTime gameTime)
         {
+            Ancien…tatManette = …tatManette;
+
         }
-           
+
 
         public bool EstManetteActivÈe(PlayerIndex numManette)
         {
-            GamePadState …tatManette = GamePad.GetState(numManette);
+            …tatManette = GamePad.GetState(numManette);
             return …tatManette.IsConnected;
         }
 
         public bool EstNouvelleTouche(PlayerIndex numManette, Buttons touche)
         {
-            GamePadState …tatManette = GamePad.GetState(numManette);
-            return …tatManette.IsButtonDown(touche) && …tatManette.IsButtonUp(touche);
+            …tatManette = GamePad.GetState(numManette);
+            return …tatManette.IsButtonDown(touche) && Ancien…tatManette.IsButtonUp(touche);
         }
 
         public bool EstToucheEnfoncÈe(PlayerIndex numManette, Buttons touche)
         {
-            GamePadState …tatManette = GamePad.GetState(numManette);
+            …tatManette = GamePad.GetState(numManette);
             return …tatManette.IsButtonDown(touche);
         }
 
