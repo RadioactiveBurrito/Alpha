@@ -25,7 +25,6 @@ namespace AtelierXNA
 
         //Données propres au personnages, qui seront variables.
         Vector3 Position { get; set; }
-        Vector3 VecteurVitesse { get; set; }
         Vector3 VecteurQuantitéeDeMouvement { get; set; }
         Rectangle RectangleDeCollision { get; set; }
         int CptSaut { get; set; }
@@ -46,7 +45,6 @@ namespace AtelierXNA
         }
         public override void Initialize()
         {
-            VecteurVitesse = Vector3.Zero;
             VecteurQuantitéeDeMouvement = Vector3.Zero;
             base.Initialize();
         }
@@ -85,20 +83,22 @@ namespace AtelierXNA
         }
         private void GérerContrôles()
         {
-            if(false)//Aller à droite. Le vecteur "droite" se définira par la position de la carte. 
+            Vector3 positionInitiale = Position;
+
+            if (false)//Aller à droite. Le vecteur "droite" se définira par la position de la carte. 
             {
-                VecteurVitesse += Vector3.Right*VitesseDéplacementGaucheDroite;//PROBLÈMES POUR GAUCHE DROITE, COMMENT GÉRER?!
-                VecteurQuantitéeDeMouvement = VecteurVitesse * Masse;
+                Position += Vector3.Right*VitesseDéplacementGaucheDroite;//PROBLÈMES POUR GAUCHE DROITE, COMMENT GÉRER?!
+                VecteurQuantitéeDeMouvement = (Position - positionInitiale) * Masse;
             }
             if (false)//Aller à gauche. Le vecteur "gauche" se définira par la position de la carte. 
             {
-                VecteurVitesse += Vector3.Left * VitesseDéplacementGaucheDroite;
-                VecteurQuantitéeDeMouvement = VecteurVitesse * Masse;//PROBLÈMES POUR GAUCHE DROITE, COMMENT GÉRER?!
+                Position += Vector3.Left * VitesseDéplacementGaucheDroite;
+                VecteurQuantitéeDeMouvement = (Position - positionInitiale) * Masse;//PROBLÈMES POUR GAUCHE DROITE, COMMENT GÉRER?!
             }
             if (false)//Sauter ou double saut (si le cas est échéant). Le vecteur "haut" se définira par la position de la carte. 
             {
-                VecteurVitesse += Vector3.Up * VitesseDéplacementSaut;
-                VecteurQuantitéeDeMouvement = VecteurVitesse * Masse;
+                Position += Vector3.Up * VitesseDéplacementSaut;
+                VecteurQuantitéeDeMouvement = (Position - positionInitiale) * Masse;
             }
             if(false)//Attaque corps à corps
             {

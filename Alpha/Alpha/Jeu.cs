@@ -48,8 +48,10 @@ namespace AtelierXNA
             Services.AddService(typeof(InputControllerManager), GestionManette);
             Services.AddService(typeof(RessourcesManager<Texture2D>), GestionnaireDeTextures);
             Services.AddService(typeof(Caméra), CaméraJeu);
-            
 
+            Map carteDuJeu = new Map(this, 1, Vector3.Zero, Vector3.Zero);
+
+            Components.Add(carteDuJeu);
 
             base.Initialize();
         }

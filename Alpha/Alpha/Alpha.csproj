@@ -62,7 +62,7 @@
   <ItemGroup>
     <Reference Include="ComposantsDeBase, Version=1.0.0.0, Culture=neutral, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\CÉGEP\3èmeSession\Programmation\3D\Évaluations\AS3D_2016 - À compléter\ComposantsDeBase\bin\x86\Debug\ComposantsDeBase.dll</HintPath>
+      <HintPath>..\..\..\..\..\Desktop\Prog\AS3D travaillé\AS3D_2016 - À compléter\ComposantsDeBase\bin\x86\Debug\ComposantsDeBase.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
     <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
