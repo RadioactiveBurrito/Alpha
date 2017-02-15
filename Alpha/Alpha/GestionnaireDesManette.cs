@@ -25,7 +25,7 @@ namespace AtelierXNA
         bool[] ManetteActive { get; set; }
         GameState gameState { get; set; }
         GamePadState ÉtatManette { get; set; }
-        PlayerIndex[] NumJoueur { get; set; }
+        PlayerIndex NumJoueur { get; set; }
         bool Déconnection { get; set; }
         Color CouleurFond { get; set; }
         GraphicsDeviceManager graphics;
@@ -63,8 +63,7 @@ namespace AtelierXNA
             // TODO: Add your initialization code here
             GestionManette = Game.Services.GetService(typeof(InputControllerManager)) as InputControllerManager;
             listeDesPersonnages = Game.Services.GetService(typeof(List<Personnage>)) as List<Personnage>;
-            NumJoueur[0] = PlayerIndex.One;
-            NumJoueur[1] = PlayerIndex.Two;
+           
 
             base.Initialize();
         }
@@ -83,7 +82,7 @@ namespace AtelierXNA
             TestConnectionManette();
             for (int i = 0; i < NbManetteMax; i++)
             {
-                GestionDesManette(NumJoueur[0]);
+                GestionDesManette();
             }
 
             switch (gameState)
@@ -126,88 +125,78 @@ namespace AtelierXNA
             for (int i = 0; i < NbManetteMax; i++)
             {
                 if (ManetteActive[i] &&
-                    !GestionManette.EstManetteActivée(NumJoueur[i]))
+                    !GestionManette.EstManetteActivée(NumJoueur))
                 {
                     Déconnection = true;
                 }
             }
         }
 
-        void GestionDesManette(PlayerIndex numJoueur)
+        void GestionDesManette()
         {
-            nouvelleTouche = GamePad.GetState(numJoueur);
-            if (GestionManette.EstManetteActivée(numJoueur))
+            nouvelleTouche = GamePad.GetState(NumJoueur);
+            if (GestionManette.EstManetteActivée(NumJoueur))
             {
-                GérerDéplacement(numJoueur);
-                GérerAction(numJoueur);
-                if (GestionManette.EstNouvelleTouche(numJoueur, Buttons.A))
-                {
-                    //float i = ascension;
-                    //int descente = 0;
-                    //while(i > 0)
-                    //{
-                    //    Position.Y += ascension;
-                    //    ++descente;
-                    //    ascension -= descente;
-                    //}
-                }
+                GérerDéplacement();
+                GérerAction();
+               
 
                 AncienneTouche = nouvelleTouche;
             }
 
         }
 
-        void GérerDéplacement(PlayerIndex numJoueur)
+        void GérerDéplacement()
         {
             nouvellePosition = nouvelleTouche.ThumbSticks.Left;
-            GérerDéplacementHorizontale(numJoueur);
+            GérerDéplacementHorizontale();
             anciennePosition = nouvellePosition;
 
         }
 
        
 
-        void GérerDéplacementHorizontale(PlayerIndex numJoueur)
+        void GérerDéplacementHorizontale()
         {
             if (nouvellePosition.X == 1.0f)
             {
-                listeDesPersonnages[Convert.ToInt32(numJoueur.ToString())].ModifierPosition(DROITE);
+                listeDesPersonnages[Convert.ToInt32(NumJoueur.ToString())].ModifierPosition(DROITE);
             }
 
             if (nouvellePosition.X == -1.0f)
             {
-                listeDesPersonnages[Convert.ToInt32(numJoueur.ToString())].ModifierPosition(GAUCHE);
+                listeDesPersonnages[Convert.ToInt32(NumJoueur.ToString())].ModifierPosition(GAUCHE);
             }
         }
 
-        void GérerAction(PlayerIndex numJoueur)
+        void GérerAction()
         {
-            Sauter(numJoueur);
-           
+            Sauter();
+            Coup1();
         }
 
-        void Sauter(PlayerIndex numJoueur)
+        void Sauter()
         {
-            if (GestionManette.EstNouvelleTouche(numJoueur, Buttons.A))
+            if (GestionManette.EstNouvelleTouche(NumJoueur, Buttons.A))
             {
                 float i = ascension;
                 Vector3 monter = new Vector3(0, 20f, 0);
                 int descente = 0;
                 while (i > 0)
                 {
-                    listeDesPersonnages[Convert.ToInt32(numJoueur.ToString())-1].ModifierPosition(monter);
+                    listeDesPersonnages[Convert.ToInt32(NumJoueur.ToString())-1].ModifierPosition(monter);
                     ++descente;
                     monter.Y -= descente;
                 }
             }
         }
 
-        void Coup1(PlayerIndex numJoueur)
+        void Coup1()
         {
-            if (GestionManette.EstNouvelleTouche(numJoueur, Buttons.X))
+            if (GestionManette.EstNouvelleTouche(NumJoueur, Buttons.X))
             {
-                Coup1Gauche(numJoueur);
-                Coup1Droit(numJoueur);
+                Coup1Gauche(NumJoueur);
+                Coup1Droit(NumJoueur);
 
             }
             
