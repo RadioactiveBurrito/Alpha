@@ -13,15 +13,14 @@ using Microsoft.Xna.Framework.Media;
 namespace AtelierXNA
 {// Partit Jack
 
-    public class Map : PrimitiveDeBase
+    public class Plaquette : PrimitiveDeBase
     {
 
         const int NB_TRIANGLE_SURFACE = 2;
         const int NB_TRIANGLE_BASE = 8;
         const int NB_SOMMETS_LIST = 3;
         const int coeff_Surface = 2;
-        const int coeff_Base = 4;
-        const int hauteur = 15;
+        const int hauteur = 1;
 
         float Largeur { get; set; }
         float Longueur { get; set; }
@@ -32,20 +31,16 @@ namespace AtelierXNA
         BasicEffect EffetDeBase { get; set; }
 
 
-        public Map(Game game, float homothetie, Vector3 rotationInitiale, Vector3 position)
-           : base(game, homothetie, rotationInitiale, position)
-        {
-            Origine = position;
-        }
+        public Plaquette(Game game, float homothetie, Vector3 rotationInitiale, Vector3 position)
+           : base(game, homothetie, rotationInitiale, position) { }
 
         public override void Initialize()
         {
-            Longueur = 100f;
-            Largeur = 50;
+            Longueur = 20f;
+            Largeur = 20;
+            Origine = Vector3.Zero;
             InitialiserPtsSommets();
             InitialiserSommets();
-            Game.Components.Add(new Plaquette(this.Game, 1, Vector3.Zero, new Vector3(Origine.X - Longueur / 4, Origine.Y + hauteur, Origine.Z)));
-            Game.Components.Add(new Plaquette(this.Game, 1, Vector3.Zero, new Vector3(Origine.X + Longueur / 4, Origine.Y + hauteur, Origine.Z)));
 
             base.Initialize();
         }
@@ -63,12 +58,12 @@ namespace AtelierXNA
             PtsSommets[5] = PtsSommets[1];
 
             //Plaque du dessous
-            PtsSommets[6] = new Vector3(Origine.X - Longueur / coeff_Base, Origine.Y - hauteur, Origine.Z - Largeur / coeff_Base);
-            PtsSommets[7] = new Vector3(Origine.X - Longueur / coeff_Base, Origine.Y - hauteur, Origine.Z + Largeur / coeff_Base);
-            PtsSommets[8] = new Vector3(Origine.X + Longueur / coeff_Base, Origine.Y - hauteur, Origine.Z + Largeur / coeff_Base);
+            PtsSommets[6] = new Vector3(Origine.X - Longueur / coeff_Surface, Origine.Y - hauteur, Origine.Z - Largeur / coeff_Surface);
+            PtsSommets[7] = new Vector3(Origine.X - Longueur / coeff_Surface, Origine.Y - hauteur, Origine.Z + Largeur / coeff_Surface);
+            PtsSommets[8] = new Vector3(Origine.X + Longueur / coeff_Surface, Origine.Y - hauteur, Origine.Z + Largeur / coeff_Surface);
             PtsSommets[9] = PtsSommets[6];
             PtsSommets[10] = PtsSommets[8];
-            PtsSommets[11] = new Vector3(Origine.X + Longueur / 3, Origine.Y - hauteur, Origine.Z - Largeur / 3);
+            PtsSommets[11] = new Vector3(Origine.X + Longueur / coeff_Surface, Origine.Y - hauteur, Origine.Z - Largeur / coeff_Surface);
 
             //Coter Face
             PtsSommets[12] = PtsSommets[7];
@@ -139,7 +134,7 @@ namespace AtelierXNA
         public Vector3 GetNormal()
         {
             // retourne l'interrvalle en x de la hauteur de la surface
-            return new Vector3(Origine.X - Longueur / coeff_Surface, Origine.X + Longueur / coeff_Surface, Origine.Y);
+            return new Vector3(PositionInitiale.X - Longueur / coeff_Surface, PositionInitiale.X + Longueur / coeff_Surface, PositionInitiale.Y);
         }
 
 

@@ -83,6 +83,7 @@
     <Compile Include="Map.cs" />
     <Compile Include="Menu.cs" />
     <Compile Include="Personnage.cs" />
+    <Compile Include="Plaquette.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Jeu.cs" />
