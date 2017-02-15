@@ -18,11 +18,12 @@ namespace Alpha
         public const float ACCÉLÉRATION_GRAVITATIONNELLE = 9.8f;
         public Vector3 VECTEUR_ACCÉLÉRATION_GRAVITATIONNELLE = ACCÉLÉRATION_GRAVITATIONNELLE*(Vector3.Down);
 
-        private GraphicsDeviceManager graphics;
-        private SpriteBatch spriteBatch;
+        GraphicsDeviceManager PériphériqueGraphique { get; set; }
+        SpriteBatch GestionSprites { get; set; }
         InputManager GestionInput { get; set; }
         InputControllerManager GestionManette { get; set; }
         List<Personnage> ListeDesPersonnages { get; set; }
+        Caméra CaméraJeu { get; set; }
         private bool JeuEnPause { get; set; }
         //Menu {boutons}
 
@@ -30,16 +31,24 @@ namespace Alpha
 
         public Jeu()
         {
-            graphics = new GraphicsDeviceManager(this);
+            PériphériqueGraphique = new GraphicsDeviceManager(this);
             Content.RootDirectory = "Content";
         }
         protected override void Initialize()
         {
             GestionInput = new InputManager(this);
-            Services.AddService(typeof(InputManager), GestionInput);
-
             GestionManette = new InputControllerManager(this);
+            CaméraJeu = new Caméra();
+            
+            GestionSprites = new SpriteBatch(GraphicsDevice);
+
+
+
+            Services.AddService(typeof(InputManager), GestionInput);
+            Services.AddService(typeof(GraphicsDeviceManager),PériphériqueGraphique);
             Services.AddService(typeof(InputControllerManager), GestionManette);
+            Services.AddService(typeof(Caméra), CaméraJeu);
+            
 
 
             base.Initialize();
@@ -60,7 +69,7 @@ namespace Alpha
         protected override void LoadContent()
         {
 
-            spriteBatch = new SpriteBatch(GraphicsDevice);
+           
 
 
         }

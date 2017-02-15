@@ -24,13 +24,11 @@ namespace Alpha
         PlayerIndex[] NumJoueur { get; set; }
         bool Déconnection { get; set; }
         Color CouleurFond { get; set; }
-        GraphicsDeviceManager graphics;
         GestionnaireDesManette uneManette;
 
         public InputControllerManager(Game game)
             : base(game)
         {
-            graphics = new GraphicsDeviceManager(game);
         }
 
 
