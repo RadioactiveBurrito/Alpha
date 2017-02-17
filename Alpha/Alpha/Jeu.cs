@@ -43,6 +43,7 @@ namespace AtelierXNA
             GestionSprites = new SpriteBatch(GraphicsDevice);
             GestionnaireDeTextures = new RessourcesManager<Texture2D>(this,"Textures");
 
+
             Services.AddService(typeof(InputManager), GestionInput);
             Services.AddService(typeof(GraphicsDeviceManager),PériphériqueGraphique);
             Services.AddService(typeof(InputControllerManager), GestionManette);
@@ -62,7 +63,7 @@ namespace AtelierXNA
         // Si ta un prob vien voir marco au rak a bicyk!!!
         void CréationPersonnage()
         {
-            Personnage unPersonnage = new Personnage(this, 1, 1, 1, new Vector3(0, 0, 0));
+            Personnage unPersonnage = new Personnage(this, 1, 1, 1, new Vector3(0, 0, 0), PlayerIndex.One);
             ListeDesPersonnages.Add(unPersonnage);
             Services.AddService(typeof(List<Personnage>), ListeDesPersonnages);
         }

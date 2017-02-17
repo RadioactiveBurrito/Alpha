@@ -20,21 +20,22 @@ namespace AtelierXNA
         float VitesseDéplacementSaut { get; set; } //Le scalaire par défaut du déplacement vers le haut.
         float HauteurMaximaleSaut { get; set; } //Le scalaire représentant la longueur maximale du vecteur normal à la surface d'où le personnage saute.
         float Masse { get; set; } //Le scalaire représentant la masse du personnage qui sera utilisée lors des calculs vectoriels de collisions.
-        Texture2D FeuilleDeSprite { get; set; } //Redéfinir le rectangle de collision selon le découpage de cette feuille sprite.
+        PlayerIndex NumeroManette { get; set; }
 
 
         //Données propres au personnages, qui seront variables.
-        Vector3 Position { get; set; }
+        protected Vector3 Position { get; set; }
         Vector3 VecteurQuantitéeDeMouvement { get; set; }
         Rectangle RectangleDeCollision { get; set; }
+        InputControllerManager GestionManette { get; set; }
         int CptSaut { get; set; }
-
+       bool EstDansLesAir { get; set; }
 
         float Intervalle_StunAnimation { get; set; }
         float TempsÉcouléDepuisMAJ { get; set; }
         
 
-        public Personnage(Game game, float vitesseDéplacementGaucheDroite, float hauteurMaximaleSaut, float masse, Vector3 position)
+        public Personnage(Game game, float vitesseDéplacementGaucheDroite, float hauteurMaximaleSaut, float masse, Vector3 position, PlayerIndex numeroManette)
             : base(game)
         {
             VitesseDéplacementGaucheDroite = vitesseDéplacementGaucheDroite;
@@ -42,6 +43,7 @@ namespace AtelierXNA
             VitesseDéplacementSaut = (float)Math.Sqrt(2*Jeu.ACCÉLÉRATION_GRAVITATIONNELLE*HauteurMaximaleSaut);
             Masse = masse;
             Position = position;
+            NumeroManette = numeroManette;
         }
         public override void Initialize()
         {
@@ -50,6 +52,7 @@ namespace AtelierXNA
         }
         protected override void LoadContent()
         {
+            GestionManette = Game.Services.GetService(typeof(InputControllerManager)) as InputControllerManager;
             base.LoadContent();
         }
         #endregion
@@ -85,26 +88,26 @@ namespace AtelierXNA
         {
             Vector3 positionInitiale = Position;
 
-            if (false)//Aller à droite. Le vecteur "droite" se définira par la position de la carte. 
+            if (GestionManette.EstNouvelleTouche(NumeroManette, Buttons.LeftThumbstickRight))//Aller à droite. Le vecteur "droite" se définira par la position de la carte. 
             {
                 Position += Vector3.Right*VitesseDéplacementGaucheDroite;//PROBLÈMES POUR GAUCHE DROITE, COMMENT GÉRER?!
                 VecteurQuantitéeDeMouvement = (Position - positionInitiale) * Masse;
             }
-            if (false)//Aller à gauche. Le vecteur "gauche" se définira par la position de la carte. 
+            if (GestionManette.EstNouvelleTouche(NumeroManette, Buttons.LeftThumbstickLeft))//Aller à gauche. Le vecteur "gauche" se définira par la position de la carte. 
             {
                 Position += Vector3.Left * VitesseDéplacementGaucheDroite;
                 VecteurQuantitéeDeMouvement = (Position - positionInitiale) * Masse;//PROBLÈMES POUR GAUCHE DROITE, COMMENT GÉRER?!
             }
-            if (false)//Sauter ou double saut (si le cas est échéant). Le vecteur "haut" se définira par la position de la carte. 
+            if (GestionManette.EstNouvelleTouche(NumeroManette, Buttons.A))//Sauter ou double saut (si le cas est échéant). Le vecteur "haut" se définira par la position de la carte. 
             {
                 Position += Vector3.Up * VitesseDéplacementSaut;
                 VecteurQuantitéeDeMouvement = (Position - positionInitiale) * Masse;
             }
-            if(false)//Attaque corps à corps
+            if(GestionManette.EstNouvelleTouche(NumeroManette, Buttons.X))//Attaque corps à corps
             {
 
             }
-            if(false)//Lancer de projectile (s'il y a lieu).
+            if(GestionManette.EstNouvelleTouche(NumeroManette, Buttons.Y))//Lancer de projectile (s'il y a lieu).
             {
 
             }
